@@ -1,6 +1,6 @@
 import express, { Application } from 'express';
 import cookieParser from 'cookie-parser';
-import mongoose, { mongo } from 'mongoose';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
 import cors from 'cors';
