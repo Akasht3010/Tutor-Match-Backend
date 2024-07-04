@@ -15,11 +15,11 @@ export type TutorType = {
     email: String,
     phone: Number,
     gender: String,
-    password: String,
     dob: Date,
     profilePic: String,
     subjects: String[],
     qualification: String,
     experience: Number,
-    availability: String,
+    availability: Boolean,
+    password: String,
 };
