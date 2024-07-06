@@ -2,7 +2,7 @@ import express from 'express'
 import { Request, Response } from 'express'
 import cookieParser from 'cookie-parser'
 import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import multer from 'multer'
 import path from 'path'
@@ -28,6 +28,10 @@ const storage = multer.diskStorage({
 const uploadMiddleware = multer({ storage })
 
 router.use(cookieParser())
+
+interface CustomJwtPayload extends JwtPayload {
+  id: string;
+}
 
 router.post('/register', uploadMiddleware.single('profilePic'), async (req: Request, res: Response) => {
   try {
@@ -128,5 +132,35 @@ router.get("/profile", (req: Request, res: Response) => {
 router.post("/logout", async (req: Request, res: Response) => {
   res.clearCookie("token").json({ message: "Logged out" });
 });
+
+router.put("/update/firstName", async (req: Request, res: Response) => {
+  const { firstName } = req.body
+  const { token } = req.cookies
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized" })
+  }
+
+  jwt.verify(token, secret, {}, async (err, decoded) => {
+    if (err) {
+      console.error('JWT verification error:', err);
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    try {
+      const info = decoded as JwtPayload;
+      const updatedAdmin = await UserModel.findByIdAndUpdate(info.id, { firstName }, { new: true });
+
+      if (!updatedAdmin) {
+        return res.status(404).json({ error: 'Admin not found' });
+      }
+
+      return res.status(200).json({ message: 'First name updated successfully', updatedAdmin });
+    } catch (updateError) {
+      console.error('Database update error:', updateError);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+})
 
 export default router
