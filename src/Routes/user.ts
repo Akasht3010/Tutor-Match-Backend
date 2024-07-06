@@ -313,6 +313,44 @@ router.put("/update/dob", async (req: Request, res: Response) => {
   })
 })
 
+router.put("/update/profilePic", uploadMiddleware.single('profilePic'), async (req: Request, res: Response) => {
+  const { token } = req.cookies;
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized" })
+  }
+
+  jwt.verify(token, secret, {}, async (err, decoded) => {
+    if (err) {
+      console.log("JWT Verification error: ", err);
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    try {
+      const info = decoded as JwtPayload;
+      const file = req.file
+
+      if (!file) {
+        return res.status(400).json({ message: 'Please upload a file' })
+      }
+
+      const { filename } = file
+      const profilePic = `uploads/${filename}`
+
+      const updatedAdmin = await UserModel.findByIdAndUpdate(info.id, { profilePic }, { new: true })
+
+      if (!updatedAdmin) {
+        return res.status(404).json({ error: 'Admin not found' });
+      }
+
+      return res.status(200).json({ message: 'Profile Picture updated successfully', updatedAdmin });
+    } catch (updateError) {
+      console.error('Database update error:', updateError);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  })
+})
+
 router.put("/update/password", async (req: Request, res: Response) => {
   const { oldPassword, newPassword } = req.body;
   const { token } = req.cookies;
