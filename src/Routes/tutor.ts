@@ -122,16 +122,16 @@ router.get('/profile', (req: Request, res: Response) => {
   })
 })
 
-router.put('/update-firstName' , async (req : Request, res : Response) => {
+router.put('/update-firstName', async (req: Request, res: Response) => {
   const { firstName } = req.body
   const { token } = req.cookies.token
 
-  if(!token) {
+  if (!token) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
-  jwt.verify(token, secret,{}, async (err: any, decoded: any) => {
-    if(err) {
+  jwt.verify(token, secret, {}, async (err: any, decoded: any) => {
+    if (err) {
       console.log('JWT Verification Error:', err)
       return res.status(401).json({ message: 'Unauthorized' })
     }
@@ -140,28 +140,28 @@ router.put('/update-firstName' , async (req : Request, res : Response) => {
       const info = decoded as JwtPayload
       const updateTutor = await TutorSchema.findByIdAndUpdate(info.id, { firstName }, { new: true })
 
-      if(!updateTutor) {
+      if (!updateTutor) {
         return res.status(400).json({ message: 'Tutor not found' })
       }
 
       return res.status(200).json({ message: 'First name updated successfully', data: updateTutor })
-    } catch{err}{
+    } catch { err } {
       console.log('Update First Name Error:', err)
       return res.status(500).json({ message: 'Internal server error' })
     }
   })
 })
 
-router.put('/update-lastName' , async (req : Request, res : Response) => {
+router.put('/update-lastName', async (req: Request, res: Response) => {
   const { lastName } = req.body
   const { token } = req.cookies.token
 
-  if(!token) {
+  if (!token) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
-  jwt.verify(token, secret,{}, async (err: any, decoded: any) => {
-    if(err) {
+  jwt.verify(token, secret, {}, async (err: any, decoded: any) => {
+    if (err) {
       console.log('JWT Verification Error:', err)
       return res.status(401).json({ message: 'Unauthorized' })
     }
@@ -170,28 +170,28 @@ router.put('/update-lastName' , async (req : Request, res : Response) => {
       const info = decoded as JwtPayload
       const updateTutor = await TutorSchema.findByIdAndUpdate(info.id, { lastName }, { new: true })
 
-      if(!updateTutor) {
+      if (!updateTutor) {
         return res.status(400).json({ message: 'Tutor not found' })
       }
 
       return res.status(200).json({ message: 'Last name updated successfully', data: updateTutor })
-    } catch{err}{
+    } catch { err } {
       console.log('Update Last Name Error:', err)
       return res.status(500).json({ message: 'Internal server error' })
     }
   })
 })
 
-router.put('/update-email' , async (req : Request, res : Response) => {
+router.put('/update-email', async (req: Request, res: Response) => {
   const { email } = req.body
   const { token } = req.cookies.token
 
-  if(!token) {
+  if (!token) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
-  jwt.verify(token, secret,{}, async (err: any, decoded: any) => {
-    if(err) {
+  jwt.verify(token, secret, {}, async (err: any, decoded: any) => {
+    if (err) {
       console.log('JWT Verification Error:', err)
       return res.status(401).json({ message: 'Unauthorized' })
     }
@@ -200,28 +200,28 @@ router.put('/update-email' , async (req : Request, res : Response) => {
       const info = decoded as JwtPayload
       const updateTutor = await TutorSchema.findByIdAndUpdate(info.id, { email }, { new: true })
 
-      if(!updateTutor) {
+      if (!updateTutor) {
         return res.status(400).json({ message: 'Tutor not found' })
       }
 
       return res.status(200).json({ message: 'Email updated successfully', data: updateTutor })
-    } catch{err}{
+    } catch { err } {
       console.log('Update Email Error:', err)
       return res.status(500).json({ message: 'Internal server error' })
     }
   })
 })
 
-router.put('/update-phone' , async (req : Request, res : Response) => {
+router.put('/update-phone', async (req: Request, res: Response) => {
   const { phone } = req.body
   const { token } = req.cookies.token
 
-  if(!token) {
+  if (!token) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
-  jwt.verify(token, secret,{}, async (err: any, decoded: any) => {
-    if(err) {
+  jwt.verify(token, secret, {}, async (err: any, decoded: any) => {
+    if (err) {
       console.log('JWT Verification Error:', err)
       return res.status(401).json({ message: 'Unauthorized' })
     }
@@ -230,28 +230,28 @@ router.put('/update-phone' , async (req : Request, res : Response) => {
       const info = decoded as JwtPayload
       const updateTutor = await TutorSchema.findByIdAndUpdate(info.id, { phone }, { new: true })
 
-      if(!updateTutor) {
+      if (!updateTutor) {
         return res.status(400).json({ message: 'Tutor not found' })
       }
 
       return res.status(200).json({ message: 'Phone updated successfully', data: updateTutor })
-    } catch{err}{
+    } catch { err } {
       console.log('Update Phone Error:', err)
       return res.status(500).json({ message: 'Internal server error' })
     }
   })
 })
 
-router.put('/update-gender' , async (req : Request, res : Response) => {
+router.put('/update-gender', async (req: Request, res: Response) => {
   const { gender } = req.body
   const { token } = req.cookies.token
 
-  if(!token) {
+  if (!token) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
-  jwt.verify(token, secret,{}, async (err: any, decoded: any) => {
-    if(err) {
+  jwt.verify(token, secret, {}, async (err: any, decoded: any) => {
+    if (err) {
       console.log('JWT Verification Error:', err)
       return res.status(401).json({ message: 'Unauthorized' })
     }
@@ -260,28 +260,28 @@ router.put('/update-gender' , async (req : Request, res : Response) => {
       const info = decoded as JwtPayload
       const updateTutor = await TutorSchema.findByIdAndUpdate(info.id, { gender }, { new: true })
 
-      if(!updateTutor) {
+      if (!updateTutor) {
         return res.status(400).json({ message: 'Tutor not found' })
       }
 
       return res.status(200).json({ message: 'Phone updated successfully', data: updateTutor })
-    } catch{err}{
+    } catch { err } {
       console.log('Update Phone Error:', err)
       return res.status(500).json({ message: 'Internal server error' })
     }
   })
 })
 
-router.put('/update-dob' , async (req : Request, res : Response) => {
+router.put('/update-dob', async (req: Request, res: Response) => {
   const { dob } = req.body
   const { token } = req.cookies.token
 
-  if(!token) {
+  if (!token) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
-  jwt.verify(token, secret,{}, async (err: any, decoded: any) => {
-    if(err) {
+  jwt.verify(token, secret, {}, async (err: any, decoded: any) => {
+    if (err) {
       console.log('JWT Verification Error:', err)
       return res.status(401).json({ message: 'Unauthorized' })
     }
@@ -290,28 +290,28 @@ router.put('/update-dob' , async (req : Request, res : Response) => {
       const info = decoded as JwtPayload
       const updateTutor = await TutorSchema.findByIdAndUpdate(info.id, { dob }, { new: true })
 
-      if(!updateTutor) {
+      if (!updateTutor) {
         return res.status(400).json({ message: 'Tutor not found' })
       }
 
       return res.status(200).json({ message: 'Date of Birth updated successfully', data: updateTutor })
-    } catch{err}{
+    } catch { err } {
       console.log('Update Date of Birth Error:', err)
       return res.status(500).json({ message: 'Internal server error' })
     }
   })
 })
 
-router.put('/update-profilePic' , uploadMiddleware.single('profilePic'), async (req : Request, res : Response) => {
+router.put('/update-profilePic', uploadMiddleware.single('profilePic'), async (req: Request, res: Response) => {
   const { profilePic } = req.body
   const { token } = req.cookies.token
 
-  if(!token) {
+  if (!token) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
-  jwt.verify(token, secret,{}, async (err: any, decoded: any) => {
-    if(err) {
+  jwt.verify(token, secret, {}, async (err: any, decoded: any) => {
+    if (err) {
       console.log('JWT Verification Error:', err)
       return res.status(401).json({ message: 'Unauthorized' })
     }
@@ -320,28 +320,28 @@ router.put('/update-profilePic' , uploadMiddleware.single('profilePic'), async (
       const info = decoded as JwtPayload
       const updateTutor = await TutorSchema.findByIdAndUpdate(info.id, { profilePic }, { new: true })
 
-      if(!updateTutor) {
+      if (!updateTutor) {
         return res.status(400).json({ message: 'Tutor not found' })
       }
 
       return res.status(200).json({ message: 'Profile Picture updated successfully', data: updateTutor })
-    } catch{err}{
+    } catch { err } {
       console.log('Update Profile Picture Error:', err)
       return res.status(500).json({ message: 'Internal server error' })
     }
   })
 })
 
-router.put('/update-subjects' , async (req : Request, res : Response) => {
+router.put('/update-subjects', async (req: Request, res: Response) => {
   const { subjects } = req.body
   const { token } = req.cookies.token
 
-  if(!token) {
+  if (!token) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
-  jwt.verify(token, secret,{}, async (err: any, decoded: any) => {
-    if(err) {
+  jwt.verify(token, secret, {}, async (err: any, decoded: any) => {
+    if (err) {
       console.log('JWT Verification Error:', err)
       return res.status(401).json({ message: 'Unauthorized' })
     }
@@ -350,28 +350,28 @@ router.put('/update-subjects' , async (req : Request, res : Response) => {
       const info = decoded as JwtPayload
       const updateTutor = await TutorSchema.findByIdAndUpdate(info.id, { subjects }, { new: true })
 
-      if(!updateTutor) {
+      if (!updateTutor) {
         return res.status(400).json({ message: 'Tutor not found' })
       }
 
       return res.status(200).json({ message: 'Subjects updated successfully', data: updateTutor })
-    } catch{err}{
+    } catch { err } {
       console.log('Update Subjects Error:', err)
       return res.status(500).json({ message: 'Internal server error' })
     }
   })
 })
 
-router.put('/update-qualification' , async (req : Request, res : Response) => {
+router.put('/update-qualification', async (req: Request, res: Response) => {
   const { qualification } = req.body
   const { token } = req.cookies.token
 
-  if(!token) {
+  if (!token) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
-  jwt.verify(token, secret,{}, async (err: any, decoded: any) => {
-    if(err) {
+  jwt.verify(token, secret, {}, async (err: any, decoded: any) => {
+    if (err) {
       console.log('JWT Verification Error:', err)
       return res.status(401).json({ message: 'Unauthorized' })
     }
@@ -380,28 +380,28 @@ router.put('/update-qualification' , async (req : Request, res : Response) => {
       const info = decoded as JwtPayload
       const updateTutor = await TutorSchema.findByIdAndUpdate(info.id, { qualification }, { new: true })
 
-      if(!updateTutor) {
+      if (!updateTutor) {
         return res.status(400).json({ message: 'Tutor not found' })
       }
 
       return res.status(200).json({ message: 'Qualification updated successfully', data: updateTutor })
-    } catch{err}{
+    } catch { err } {
       console.log('Update Qualification Error:', err)
       return res.status(500).json({ message: 'Internal server error' })
     }
   })
 })
 
-router.put('/update-experience' , async (req : Request, res : Response) => {
+router.put('/update-experience', async (req: Request, res: Response) => {
   const { experience } = req.body
   const { token } = req.cookies.token
 
-  if(!token) {
+  if (!token) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
-  jwt.verify(token, secret,{}, async (err: any, decoded: any) => {
-    if(err) {
+  jwt.verify(token, secret, {}, async (err: any, decoded: any) => {
+    if (err) {
       console.log('JWT Verification Error:', err)
       return res.status(401).json({ message: 'Unauthorized' })
     }
@@ -410,28 +410,28 @@ router.put('/update-experience' , async (req : Request, res : Response) => {
       const info = decoded as JwtPayload
       const updateTutor = await TutorSchema.findByIdAndUpdate(info.id, { experience }, { new: true })
 
-      if(!updateTutor) {
+      if (!updateTutor) {
         return res.status(400).json({ message: 'Tutor not found' })
       }
 
       return res.status(200).json({ message: 'Experience updated successfully', data: updateTutor })
-    } catch{err}{
+    } catch { err } {
       console.log('Update Experience Error:', err)
       return res.status(500).json({ message: 'Internal server error' })
     }
   })
 })
 
-router.put('/update-availability' , async (req : Request, res : Response) => {
+router.put('/update-availability', async (req: Request, res: Response) => {
   const { availability } = req.body
   const { token } = req.cookies.token
 
-  if(!token) {
+  if (!token) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
-  jwt.verify(token, secret,{}, async (err: any, decoded: any) => {
-    if(err) {
+  jwt.verify(token, secret, {}, async (err: any, decoded: any) => {
+    if (err) {
       console.log('JWT Verification Error:', err)
       return res.status(401).json({ message: 'Unauthorized' })
     }
@@ -440,30 +440,30 @@ router.put('/update-availability' , async (req : Request, res : Response) => {
       const info = decoded as JwtPayload
       const updateTutor = await TutorSchema.findByIdAndUpdate(info.id, { availability }, { new: true })
 
-      if(!updateTutor) {
+      if (!updateTutor) {
         return res.status(400).json({ message: 'Tutor not found' })
       }
 
       return res.status(200).json({ message: 'Availability updated successfully', data: updateTutor })
-    } catch{err}{
+    } catch { err } {
       console.log('Update Availability Error:', err)
       return res.status(500).json({ message: 'Internal server error' })
     }
   })
 })
 
-router.put('/update-password' , async (req : Request, res : Response) => {
+router.put('/update-password', async (req: Request, res: Response) => {
   const { password } = req.body
   const { token } = req.cookies.token
 
-  if(!token) {
+  if (!token) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
   const hashedPassword = await bcrypt.hash(password, 12)
 
-  jwt.verify(token, secret,{}, async (err: any, decoded: any) => {
-    if(err) {
+  jwt.verify(token, secret, {}, async (err: any, decoded: any) => {
+    if (err) {
       console.log('JWT Verification Error:', err)
       return res.status(401).json({ message: 'Unauthorized' })
     }
@@ -472,27 +472,27 @@ router.put('/update-password' , async (req : Request, res : Response) => {
       const info = decoded as JwtPayload
       const updateTutor = await TutorSchema.findByIdAndUpdate(info.id, { password: hashedPassword }, { new: true })
 
-      if(!updateTutor) {
+      if (!updateTutor) {
         return res.status(400).json({ message: 'Tutor not found' })
       }
 
       return res.status(200).json({ message: 'Password updated successfully', data: updateTutor })
-    } catch{err}{
+    } catch { err } {
       console.log('Update Password Error:', err)
       return res.status(500).json({ message: 'Internal server error' })
     }
   })
 })
 
-router.delete('/delete', async (req : Request, res : Response) => {
+router.delete('/delete', async (req: Request, res: Response) => {
   const { token } = req.cookies.token
 
-  if(!token) {
+  if (!token) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
-  jwt.verify(token, secret,{}, async (err: any, decoded: any) => {
-    if(err) {
+  jwt.verify(token, secret, {}, async (err: any, decoded: any) => {
+    if (err) {
       console.log('JWT Verification Error:', err)
       return res.status(401).json({ message: 'Unauthorized' })
     }
@@ -501,12 +501,12 @@ router.delete('/delete', async (req : Request, res : Response) => {
       const info = decoded as JwtPayload
       const deleteTutor = await TutorSchema.findByIdAndDelete(info.id)
 
-      if(!deleteTutor) {
+      if (!deleteTutor) {
         return res.status(400).json({ message: 'Tutor not found' })
       }
 
       return res.status(200).json({ message: 'Tutor deleted successfully', data: deleteTutor })
-    } catch{err}{
+    } catch { err } {
       console.log('Delete Tutor Error:', err)
       return res.status(500).json({ message: 'Internal server error' })
     }
