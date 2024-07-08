@@ -452,6 +452,38 @@ router.put('/update-availability' , async (req : Request, res : Response) => {
   })
 })
 
+router.put('/update-password' , async (req : Request, res : Response) => {
+  const { password } = req.body
+  const { token } = req.cookies.token
+
+  if(!token) {
+    return res.status(401).json({ message: 'Unauthorized' })
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 12)
+
+  jwt.verify(token, secret,{}, async (err: any, decoded: any) => {
+    if(err) {
+      console.log('JWT Verification Error:', err)
+      return res.status(401).json({ message: 'Unauthorized' })
+    }
+
+    try {
+      const info = decoded as JwtPayload
+      const updateTutor = await TutorSchema.findByIdAndUpdate(info.id, { password: hashedPassword }, { new: true })
+
+      if(!updateTutor) {
+        return res.status(400).json({ message: 'Tutor not found' })
+      }
+
+      return res.status(200).json({ message: 'Password updated successfully', data: updateTutor })
+    } catch{err}{
+      console.log('Update Password Error:', err)
+      return res.status(500).json({ message: 'Internal server error' })
+    }
+  })
+})
+
 router.delete('/delete', async (req : Request, res : Response) => {
   const { token } = req.cookies.token
 
