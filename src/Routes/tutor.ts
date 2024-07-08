@@ -2,20 +2,21 @@ import express from 'express'
 import { Request, Response } from 'express'
 import cookieParser from 'cookie-parser'
 import bcrypt from 'bcryptjs'
-import jwt, { decode, JwtPayload } from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import multer from 'multer'
 import path from 'path'
 import TutorSchema from '../../models/tutor'
 
+dotenv.config()
 const router = express.Router()
-const secret = 'bhbiashuasnbibuiuuhvuf9hf0'
+const secret = process.env.SECRET_KEY as string
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, '../../uploads'))
   },
-
+  
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
     cb(null, uniqueSuffix + path.extname(file.originalname))
@@ -122,7 +123,7 @@ router.get('/profile', (req: Request, res: Response) => {
   })
 })
 
-router.put('/update-firstName', async (req: Request, res: Response) => {
+router.put('/update/firstName', async (req: Request, res: Response) => {
   const { firstName } = req.body
   const { token } = req.cookies.token
 
@@ -152,7 +153,7 @@ router.put('/update-firstName', async (req: Request, res: Response) => {
   })
 })
 
-router.put('/update-lastName', async (req: Request, res: Response) => {
+router.put('/update/lastName', async (req: Request, res: Response) => {
   const { lastName } = req.body
   const { token } = req.cookies.token
 
@@ -182,7 +183,7 @@ router.put('/update-lastName', async (req: Request, res: Response) => {
   })
 })
 
-router.put('/update-email', async (req: Request, res: Response) => {
+router.put('/update/email', async (req: Request, res: Response) => {
   const { email } = req.body
   const { token } = req.cookies.token
 
@@ -212,7 +213,7 @@ router.put('/update-email', async (req: Request, res: Response) => {
   })
 })
 
-router.put('/update-phone', async (req: Request, res: Response) => {
+router.put('/update/phone', async (req: Request, res: Response) => {
   const { phone } = req.body
   const { token } = req.cookies.token
 
@@ -242,7 +243,7 @@ router.put('/update-phone', async (req: Request, res: Response) => {
   })
 })
 
-router.put('/update-gender', async (req: Request, res: Response) => {
+router.put('/update/gender', async (req: Request, res: Response) => {
   const { gender } = req.body
   const { token } = req.cookies.token
 
@@ -272,7 +273,7 @@ router.put('/update-gender', async (req: Request, res: Response) => {
   })
 })
 
-router.put('/update-dob', async (req: Request, res: Response) => {
+router.put('/update/dob', async (req: Request, res: Response) => {
   const { dob } = req.body
   const { token } = req.cookies.token
 
@@ -302,7 +303,7 @@ router.put('/update-dob', async (req: Request, res: Response) => {
   })
 })
 
-router.put('/update-profilePic', uploadMiddleware.single('profilePic'), async (req: Request, res: Response) => {
+router.put('/update/profilePic', uploadMiddleware.single('profilePic'), async (req: Request, res: Response) => {
   const { profilePic } = req.body
   const { token } = req.cookies.token
 
@@ -332,7 +333,7 @@ router.put('/update-profilePic', uploadMiddleware.single('profilePic'), async (r
   })
 })
 
-router.put('/update-subjects', async (req: Request, res: Response) => {
+router.put('/update/subjects', async (req: Request, res: Response) => {
   const { subjects } = req.body
   const { token } = req.cookies.token
 
@@ -362,7 +363,7 @@ router.put('/update-subjects', async (req: Request, res: Response) => {
   })
 })
 
-router.put('/update-qualification', async (req: Request, res: Response) => {
+router.put('/update/qualification', async (req: Request, res: Response) => {
   const { qualification } = req.body
   const { token } = req.cookies.token
 
@@ -392,7 +393,7 @@ router.put('/update-qualification', async (req: Request, res: Response) => {
   })
 })
 
-router.put('/update-experience', async (req: Request, res: Response) => {
+router.put('/update/experience', async (req: Request, res: Response) => {
   const { experience } = req.body
   const { token } = req.cookies.token
 
@@ -422,7 +423,7 @@ router.put('/update-experience', async (req: Request, res: Response) => {
   })
 })
 
-router.put('/update-availability', async (req: Request, res: Response) => {
+router.put('/update/availability', async (req: Request, res: Response) => {
   const { availability } = req.body
   const { token } = req.cookies.token
 
@@ -452,7 +453,7 @@ router.put('/update-availability', async (req: Request, res: Response) => {
   })
 })
 
-router.put('/update-password', async (req: Request, res: Response) => {
+router.put('/update/password', async (req: Request, res: Response) => {
   const { password } = req.body
   const { token } = req.cookies.token
 
