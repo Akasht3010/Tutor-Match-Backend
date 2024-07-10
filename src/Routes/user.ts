@@ -392,4 +392,33 @@ router.put("/update/password", async (req: Request, res: Response) => {
   });
 });
 
+router.delete("/delete", async (req: Request, res: Response) => {
+  const { token } = req.cookies;
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  jwt.verify(token, secret, {}, async (err, decoded) => {
+    if (err) {
+      console.error('JWT verification error:', err);
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    try {
+      const info = decoded as JwtPayload;
+      const deletedAdmin = await UserModel.findByIdAndDelete(info.id);
+
+      if (!deletedAdmin) {
+        return res.status(404).json({ error: 'Admin not found' });
+      }
+
+      return res.status(200).json({ message: 'Admin deleted successfully' });
+    } catch (deleteError) {
+      console.error('Database delete error:', deleteError);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+});
+
 export default router
